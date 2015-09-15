@@ -10,27 +10,27 @@ task :import => [:environment] do
   merchant_file = "db/csv/merchants.csv"
   transaction_file = "db/csv/transactions.csv"
 
-  CSV.foreach(customer_file, :headers => true, header_converters: :symbol) do |row|
-    Customer.create(row.to_hash)
+  CSV.foreach(customer_file, :headers => true) do |row|
+    Customer.create(row.to_hash.except('id'))
   end
 
-  CSV.foreach(invoice_item_file, :headers => true, header_converters: :symbol) do |row|
-    InvoiceItem.create(row.to_hash)
+  CSV.foreach(merchant_file, :headers => true) do |row|
+    Merchant.create(row.to_hash.except('id'))
   end
 
-  CSV.foreach(invoice_file, :headers => true, header_converters: :symbol) do |row|
-    Invoice.create(row.to_hash)
+  CSV.foreach(invoice_file, :headers => true) do |row|
+    Invoice.create(row.to_hash.except('id'))
   end
 
-  CSV.foreach(item_file, :headers => true, header_converters: :symbol) do |row|
-    Item.create(row.to_hash)
+  CSV.foreach(item_file, :headers => true) do |row|
+    Item.create(row.to_hash.except('id'))
   end
 
-  CSV.foreach(merchant_file, :headers => true, header_converters: :symbol) do |row|
-    Merchant.create(row.to_hash)
+  CSV.foreach(invoice_item_file, :headers => true) do |row|
+    InvoiceItem.create(row.to_hash.except('id'))
   end
 
-  CSV.foreach(transaction_file, :headers => true, header_converters: :symbol) do |row|
-    Transaction.create(row.to_hash)
+  CSV.foreach(transaction_file, :headers => true) do |row|
+    Transaction.create(row.to_hash.except('id', 'credit_card_expiration_date'))
   end
 end
