@@ -1,5 +1,6 @@
 class Api::V1::CustomersController < ApplicationController
   respond_to :json
+<<<<<<< HEAD
 
   def show
     respond_with Customer.find_by(id: params[:id])
@@ -14,4 +15,6 @@ class Api::V1::CustomersController < ApplicationController
       respond_with Customer.find_by(id: params[:id])
     end
   end
+=======
+>>>>>>> master
 end

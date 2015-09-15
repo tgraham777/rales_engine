@@ -1,5 +1,6 @@
 class Api::V1::InvoicesController < ApplicationController
   respond_to :json
+<<<<<<< HEAD
 
   def show
     respond_with Invoice.find_by(id: params[:id])
@@ -16,4 +17,6 @@ class Api::V1::InvoicesController < ApplicationController
       respond_with Invoice.find_by(id: params[:id])
     end
   end
+=======
+>>>>>>> master
 end
