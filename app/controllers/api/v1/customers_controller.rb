@@ -1,9 +1,20 @@
 class Api::V1::CustomersController < ApplicationController
   respond_to :json
-<<<<<<< HEAD
 
   def show
     respond_with Customer.find_by(id: params[:id])
+  end
+
+  def index
+    respond_with Customer.all
+  end
+
+  def create
+    respond_with Customer.create(customer_params), location: nil
+  end
+
+  def update
+    respond_with Customer.update(params[:id], customer_params), location: nil
   end
 
   def find
@@ -15,6 +26,10 @@ class Api::V1::CustomersController < ApplicationController
       respond_with Customer.find_by(id: params[:id])
     end
   end
-=======
->>>>>>> master
+
+  private
+
+  def customer_params
+    params.require(:customer).permit(:first_name, :last_name)
+  end
 end
