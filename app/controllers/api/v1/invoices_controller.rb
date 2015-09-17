@@ -1,22 +1,29 @@
 class Api::V1::InvoicesController < ApplicationController
   respond_to :json
-<<<<<<< HEAD
+
+  def index
+    respond_with Invoice.all
+  end
 
   def show
-    respond_with Invoice.find_by(id: params[:id])
+    respond_with Invoice.find(params[:id])
   end
 
   def find
-    if params.include?("customer_id")
-      respond_with Invoice.find_by(customer_id: params[:customer_id])
-    elsif params.include?("merchant_id")
-      respond_with Invoice.find_by(merchant_id: params[:merchant_id])
-    elsif params.include?("status")
-      respond_with Invoice.find_by(status: params[:status])
-    else
-      respond_with Invoice.find_by(id: params[:id])
-    end
+    respond_with Invoice.find_by(invoice_params)
   end
-=======
->>>>>>> master
+
+  def find_all
+    respond_with Invoice.where(invoice_params)
+  end
+
+  def random
+    respond_with Invoice.random
+  end
+
+  private
+
+  def invoice_params
+    params.permit(:id, :customer_id, :merchant_id, :status, :created_at, :updated_at)
+  end
 end
