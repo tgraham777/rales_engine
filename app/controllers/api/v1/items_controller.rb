@@ -4,41 +4,38 @@ class Api::V1::ItemsController < ApplicationController
   def index
     respond_with Item.all
   end
-  #testing
-
-  def create
-    respond_with Item.create(item_params), location: nil
-  end
-
-  def update
-    respond_with Item.update(params[:id], item_params), location: nil
-  end
 
   def show
     respond_with Item.find_by(id: params[:id])
   end
 
-  def destroy
-    respond_with Item.destroy(params[:id])
+  def find
+    respond_with Item.find_by(item_params)
   end
 
-  def find
-    if params.include?("name")
-      respond_with Item.find_by(name: params[:name])
-    elsif params.include?("description")
-      respond_with Item.find_by(description: params[:description])
-    elsif params.include?("unit_price")
-      respond_with Item.find_by(unit_price: params[:unit_price])
-    elsif params.include?("merchant_id")
-      respond_with Item.find_by(merchant_id: params[:merchant_id])
-    else
-      respond_with Item.find_by(id: params[:id])
-    end
+  def find_all
+    respond_with Item.where(item_params)
+  end
+
+  def random
+    respond_with Item.random
+  end
+
+  def most_revenue
+    respond_with Item.most_revenue(params[:quantity].to_i)
+  end
+
+  def most_items
+    respond_with Item.most_items(params[:quantity].to_i)
+  end
+
+  def best_day
+    respond_with Item.find_by(id: params[:id]).best_day
   end
 
   private
-  # May need to change/remove
+
   def item_params
-    params.require(:item).permit(:name, :description)
+    params.permit(:id, :name, :description, :unit_price, :merchant_id, :created_at, :updated_at)
   end
 end
